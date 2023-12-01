@@ -115,9 +115,43 @@ mongoose
       "creator": "Chef Jennifer"
     }))
 
-            // .then(()=> User.create({username: 'lloydchambrier', email: 'lloyd@test.com'}))
+    .then(() => {
+      return Recipe.findOneAndUpdate(
+        { title: "Rigatoni alla Genovese" }, // find a document with this title
+        { duration: 100 }, // set the duration to 100
+        { new: true } // return the updated document
+      );
+    })
+    .then(updatedRecipe => {
+      if (updatedRecipe) {
+        console.log("Successfully updated the duration of Rigatoni alla Genovese.");
+      } else {
+        console.log("Recipe not found or update failed.");
+      }
+    })
 
+    .then(() => {
+      return Recipe.deleteOne({ 
+        title: "Carrot Cake" 
+      });
+    })
   
+ 
+  .then(deleteResponse => {
+    if (deleteResponse.deletedCount > 0) {
+      console.log("Carrot Cake recipe deleted successfully.");
+    } else {
+      console.log("No Carrot Cake recipe found to delete.");
+    }
+  })
+ 
+ 
+  .then(() => {
+    console.log('All operations completed successfully');
+    return mongoose.disconnect();
+  })
+
   .catch(error => {
     console.error('Error connecting to the database', error);
   });
+  
