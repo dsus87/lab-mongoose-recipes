@@ -7,8 +7,8 @@ const Recipe = require('./models/Recipe.model');
 const data = require('./data');
 
 const MONGODB_URI = 'mongodb://127.0.0.1:27017/recipe-app';
+mongoose.set('strictQuery', true);
 
-mongoose.set('strictQuery', false)
 
 // Connection to the database "recipe-app"
 mongoose
